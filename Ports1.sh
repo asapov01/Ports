@@ -31,4 +31,6 @@ function check {
     done
 }
 
+clear
+logo
 check

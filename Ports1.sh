@@ -10,7 +10,6 @@ function printGreen {
 
 function check {
     while true; do
-        printGreen "Нода DeFund"
         printGreen "Виберіть, що ви хочете переглянути:"
         echo "1) Переглянути зайняті порти."
         echo "2) Вийти."

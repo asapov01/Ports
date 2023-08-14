@@ -78,4 +78,21 @@ function check {
                 echo "9090,9091,26658,26657,26656,6060,26660,1317"
             fi
             echo -n "DeFund: "
-            if is_port_taken 909
+            if is_port_taken 9090 || is_port_taken 9091 || is_port_taken 26658 || is_port_taken 26657 || is_port_taken 26656 || is_port_taken 6060 || is_port_taken 26660 || is_port_taken 1317; then
+                echo -e "\e[1m\e[31m9090,9091,26658,26657,26656,6060,26660,1317\e[0m"
+            else
+                echo "9090,9091,26658,26657,26656,6060,26660,1317"
+            fi
+            printRed "Lava, DeFund, Nibiru використовують одні і ті ж самі порти, тому при встановленні з запропонованого списку вибирайте різний набір портів"
+            printRed "Перед встановленням будь-якої ноди, перевіряйте чи зайняті порти які буде використовувати ця нода, через цю панель."
+        elif [[ $choice == "3" ]]; then
+            break
+        else
+            echo "Невірний вибір."
+        fi
+    done
+}
+
+clear
+logo
+check

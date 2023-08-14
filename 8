@@ -36,55 +36,16 @@ function check {
             printRed "Наприклад::::30333 - використовується порт 30333"
             printRed "Наприклад::::9090 - використовується порт 9090"
             printRed "Наприклад 127.0.0.1:26657 - використовується порт 26657"
-            netstat -tuln
+
+            netstat -tuln | awk 'NR>2 {print $4}' | awk -F ':' '{print $NF}' | sort -u | while read -r port; do
+                if is_port_taken "$port"; then
+                    printRed "$port - використовується порт $port"
+                else
+                    echo "$port"
+                fi
+            done
         elif [[ $choice == "2" ]]; then
-            clear
-            logo
-            printGreen "Перелік нод з панелі та стандартних портів які використовує кожна з них:"
-            echo -n "Shardeum: "
-            if is_port_taken 8080 || is_port_taken 9001; then
-                echo -e "\e[1m\e[31m8080,9001\e[0m"
-            else
-                echo "8080,9001"
-            fi
-            echo -n "StarkNet: "
-            if is_port_taken 9545; then
-                echo -e "\e[1m\e[31m9545\e[0m"
-            else
-                echo "9545"
-            fi
-            echo -n "Meson: "
-            if is_port_taken 443; then
-                echo -e "\e[1m\e[31m443\e[0m"
-            else
-                echo "443"
-            fi
-            echo -n "Subspace: "
-            if is_port_taken 30333; then
-                echo -e "\e[1m\e[31m30333\e[0m"
-            else
-                echo "30333"
-            fi
-            echo -n "Lava: "
-            if is_port_taken 9090 || is_port_taken 9091 || is_port_taken 26658 || is_port_taken 26657 || is_port_taken 26656 || is_port_taken 6060 || is_port_taken 26660 || is_port_taken 1317; then
-                echo -e "\e[1m\e[31m9090,9091,26658,26657,26656,6060,26660,1317\e[0m"
-            else
-                echo "9090,9091,26658,26657,26656,6060,26660,1317"
-            fi
-            echo -n "Nibiru: "
-            if is_port_taken 9090 || is_port_taken 9091 || is_port_taken 26658 || is_port_taken 26657 || is_port_taken 26656 || is_port_taken 6060 || is_port_taken 26660 || is_port_taken 1317; then
-                echo -e "\e[1m\e[31m9090,9091,26658,26657,26656,6060,26660,1317\e[0m"
-            else
-                echo "9090,9091,26658,26657,26656,6060,26660,1317"
-            fi
-            echo -n "DeFund: "
-            if is_port_taken 9090 || is_port_taken 9091 || is_port_taken 26658 || is_port_taken 26657 || is_port_taken 26656 || is_port_taken 6060 || is_port_taken 26660 || is_port_taken 1317; then
-                echo -e "\e[1m\e[31m9090,9091,26658,26657,26656,6060,26660,1317\e[0m"
-            else
-                echo "9090,9091,26658,26657,26656,6060,26660,1317"
-            fi
-            printRed "Lava, DeFund, Nibiru використовують одні і ті ж самі порти, тому при встановленні з запропонованого списку вибирайте різний набір портів"
-            printRed "Перед встановленням будь-якої ноди, перевіряйте чи зайняті порти які буде використовувати ця нода, через цю панель."
+            # ...
         elif [[ $choice == "3" ]]; then
             break
         else
@@ -92,6 +53,7 @@ function check {
         fi
     done
 }
+
 
 clear
 logo

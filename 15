@@ -14,7 +14,7 @@ function printRed {
 
 function is_port_taken {
     local port=$1
-    if netstat -tuln | awk -v p=":${port}\$" '$0 ~ p {exit 1}'; then
+    if ss -tuln | awk -v p=":${port} " '$0 ~ p {exit 1}'; then
         return 0
     else
         return 1
@@ -36,7 +36,7 @@ function check {
             printRed "Наприклад::::30333 - використовується порт 30333"
             printRed "Наприклад::::9090 - використовується порт 9090"
             printRed "Наприклад 127.0.0.1:26657 - використовується порт 26657"
-            netstat -tuln
+            ss -tuln
         elif [[ $choice == "2" ]]; then
             clear
             logo

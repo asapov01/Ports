@@ -37,6 +37,7 @@ function check {
             printRed "Наприклад::::9090 - використовується порт 9090"
             printRed "Наприклад 127.0.0.1:26657 - використовується порт 26657"
 
+            # Виправлена частина для виведення портів
             netstat -tuln | awk 'NR>2 {print $4}' | awk -F ':' '{print $NF}' | sort -u | while read -r port; do
                 if is_port_taken "$port"; then
                     printRed "$port - використовується порт $port"
@@ -53,6 +54,7 @@ function check {
         fi
     done
 }
+
 
 
 clear

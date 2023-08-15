@@ -15,9 +15,9 @@ function printRed {
 function is_port_taken {
     local port=$1
     if ss -tuln | awk -v p=":${port} " '$0 ~ p {exit 1}'; then
-        return 0
+        return 1  
     else
-        return 1
+        return 0  
     fi
 }
 

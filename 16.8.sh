@@ -16,20 +16,10 @@ function is_port_taken {
     local port=$1
     if ss -tuln | awk -v p=":${port} " '$0 ~ p {exit 1}'; then
         return 0
-    elif [[ ($port -ge 9190 && $port -le 2117) ||
-            ($port -eq 9190 || $port -eq 9191 || $port -eq 27658 || $port -eq 27657 || $port -eq 27656 || $port -eq 6160 || $port -eq 27660 || $port -eq 1417 ||
-             $port -eq 9290 || $port -eq 9291 || $port -eq 28658 || $port -eq 28657 || $port -eq 28656 || $port -eq 6260 || $port -eq 28660 || $port -eq 1517 ||
-             $port -eq 9390 || $port -eq 9391 || $port -eq 29658 || $port -eq 29657 || $port -eq 29656 || $port -eq 6360 || $port -eq 29660 || $port -eq 1617 ||
-             $port -eq 9490 || $port -eq 9491 || $port -eq 30658 || $port -eq 30657 || $port -eq 30656 || $port -eq 6460 || $port -eq 30660 || $port -eq 1717 ||
-             $port -eq 9590 || $port -eq 9591 || $port -eq 31658 || $port -eq 31657 || $port -eq 31656 || $port -eq 6560 || $port -eq 31660 || $port -eq 1817 ||
-             $port -eq 9690 || $port -eq 9691 || $port -eq 32658 || $port -eq 32657 || $port -eq 32656 || $port -eq 6660 || $port -eq 32660 || $port -eq 1917 ||
-             $port -eq 9790 || $port -eq 9791 || $port -eq 33658 || $port -eq 33657 || $port -eq 33656 || $port -eq 6760 || $port -eq 33660 || $port -eq 2017 ||
-             $port -eq 9890 || $port -eq 9891 || $port -eq 34658 || $port -eq 34657 || $port -eq 34656 || $port -eq 6860 || $port -eq 34660 || $port -eq 2117) ]]; then
     else
         return 1
     fi
 }
-
 
 function check {
     while true; do
@@ -93,26 +83,12 @@ function check {
             else
                 echo "9090,9091,26658,26657,26656,6060,26660,1317"
             fi
-            printGreen "Перелік портів доступних при встановленні в Cosmos (2-9 набір):"
-            echo -n "2: "
-            if is_port_taken 9190 || is_port_taken 9291 || is_port_taken 28658 || is_port_taken 28657 || is_port_taken 28656 || is_port_taken 6160 || is_port_taken 27660 || is_port_taken 1417; then
-                echo -e "\e[1m\e[31m9090,9091,26658,26657,26656,6060,26660,1317\e[0m"
-            else
-                echo "9190, 9191, 27658, 27657, 27656, 6160, 27660"
-            fi
+            printGreen "Перелік портів мережі Cosmos, які доступні для вибору при встановлені(2-9 набір)"
+            echo -n "2  - 9190, 9191, 27658, 27657, 27656, 6160, 27660, 1417"
+            if is_port_taken 9190, || is_port_taken 9191 || is_port_taken 27658 || is_port_taken 27657 || is_port_taken 26656 || is_port_taken 6160 || is_port_taken 27660 || is_port_taken 1417; then
+            echo -e "\e[1m\e[31m9190,9191,27658,27657,27656,6160,27660,1417\e[0m"
             echo "Lava, DeFund, Nibiru використовують одні і ті ж самі порти, тому при встановленні з запропонованого списку вибирайте різний набір портів"
             echo "Перед встановленням будь-якої ноди, перевіряйте чи зайняті порти які буде використовувати ця нода, через цю панель."
-
-            printGreen "Перелік портів доступних при встановленні в Cosmos (2-9 набір):"
-            echo "2  - 9190, 9191, 27658, 27657, 27656, 6160, 27660, 1417"
-            echo "3  - 9290, 9291, 28658, 28657, 28656, 6260, 28660, 1517"
-            echo "4  - 9390, 9391, 29658, 29657, 29656, 6360, 29660, 1617"
-            echo "5  - 9490, 9491, 30658, 30657, 30656, 6460, 30660, 1717"
-            echo "6  - 9590, 9591, 31658, 31657, 31656, 6560, 31660, 1817"
-            echo "7  - 9690, 9691, 32658, 32657, 32656, 6660, 32660, 1917"
-            echo "8 - 9790, 9791, 33658, 33657, 33656, 6760, 33660, 2017"
-            echo "9 - 9890, 9891, 34658, 34657, 34656, 6860, 34660, 2117"
-
         elif [[ $choice == "3" ]]; then
             break
         else

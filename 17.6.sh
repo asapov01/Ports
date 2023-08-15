@@ -15,11 +15,14 @@ function printRed {
 function is_port_taken {
     local port=$1
     if ss -tuln | awk -v p=":${port} " '$0 ~ p {exit 1}'; then
+        echo "Port $port is taken"
         return 0
     else
+        echo "Port $port is not taken"
         return 1
     fi
 }
+
 
 function check {
     while true; do
@@ -35,7 +38,7 @@ function check {
             printGreen "У стовпці Local Adress:Port ви бачите порти які вже використовуються на вашому сервері."
             printRed "Наприклад: 127.0.0.1:28657 - використовується порт 28657"
             printRed "Наприклад: *:9090 - використовується порт 9090"
-            printRed " 0.0.0.0:8080 - використовується порт 8080"
+            printRed "Наприклад: 0.0.0.0:8080 - використовується порт 8080"
             ss -tuln
         elif [[ $choice == "2" ]]; then
             clear
@@ -84,6 +87,7 @@ function check {
             else
                 echo "9090,9091,26658,26657,26656,6060,26660,1317"
             fi
+            echo ""
             printGreen "Перелік портів мережі Cosmos,які пропонуються вам при початку встановлення"
             echo -n "2  - "
             if is_port_taken 9190 || is_port_taken 9191 || is_port_taken 27658 || is_port_taken 27657 || is_port_taken 27656 || is_port_taken 6160 || is_port_taken 27660 || is_port_taken 1417; then
@@ -139,9 +143,10 @@ function check {
             else
                 echo "9890, 9891, 34658, 34657, 34656, 6860, 34660, 2117"
             fi
-
+            echo ""
             echo "Lava, DeFund, Nibiru використовують одні і ті ж самі порти, тому при встановленні з запропонованого списку вибирайте різний набір портів"
             echo "Перед встановленням будь-якої ноди, перевіряйте чи зайняті порти які буде використовувати ця нода, через цю панель."
+            echo ""
         elif [[ $choice == "3" ]]; then
             break
         else

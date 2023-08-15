@@ -14,13 +14,12 @@ function printRed {
 
 function is_port_taken {
     local port=$1
-    if ss -tuln | awk -v p=":${port} " '$0 ~ p {exit 0}'; then
-        return 0
-    else
+    if ss -tuln | awk -v p=":${port} " '$0 ~ p {exit 1}'; then
         return 1
+    else
+        return 0
     fi
 }
-
 function check {
     while true; do
         printGreen "Виберіть, що ви хочете переглянути:"

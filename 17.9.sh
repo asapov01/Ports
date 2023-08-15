@@ -14,12 +14,13 @@ function printRed {
 
 function is_port_taken {
     local port=$1
-    if ss -tuln | awk -v p=":${port} " '$0 ~ p {exit 1}'; then
+    if ss -tuln | awk -v p=":${port} " '$0 ~ p {exit 0}'; then
         return 0  
     else
         return 1  
     fi
 }
+
 
 function check {
     while true; do

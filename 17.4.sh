@@ -40,7 +40,8 @@ function check {
         elif [[ $choice == "2" ]]; then
             clear
             logo
-            printGreen "Перелік нод з панелі та стандартних портів які використовує кожна з них:"
+            printGreen "Перелік нод з панелі та стандартних портів які використовує кожна з них."
+            printGreen "Якщо порт відображається червоним - він зайнятий на вашому сервері, білим - вільний"
             echo -n "Shardeum: "
             if is_port_taken 8080 || is_port_taken 9001; then
                 echo -e "\e[1m\e[31m8080,9001\e[0m"
@@ -89,6 +90,54 @@ function check {
                 echo -e "\e[1m\e[31m9190,9191,27658,27657,27656,6160,27660,1417\e[0m"
             else
                 echo "9190, 9191, 27658, 27657, 27656, 6160, 27660, 1417"
+            fi
+            echo -n "3  - "
+            if is_port_taken 9290 || is_port_taken 9291 || is_port_taken 28658 || is_port_taken 28657 || is_port_taken 28656 || is_port_taken 6260 || is_port_taken 28660 || is_port_taken 1517; then
+                echo -e "\e[1m\e[31m9290,9291,28658,28657,28656,6260,28660,1517\e[0m"
+            else
+                echo "9290, 9291, 28658, 28657, 28656, 6260, 28660, 1517"
+            fi
+
+            echo -n "4  - "
+            if is_port_taken 9390 || is_port_taken 9391 || is_port_taken 29658 || is_port_taken 29657 || is_port_taken 29656 || is_port_taken 6360 || is_port_taken 29660 || is_port_taken 1617; then
+                echo -e "\e[1m\e[31m9390,9391,29658,29657,29656,6360,29660,1617\e[0m"
+            else
+                echo "9390, 9391, 29658, 29657, 29656, 6360, 29660, 1617"
+            fi
+
+            echo -n "5  - "
+            if is_port_taken 9490 || is_port_taken 9491 || is_port_taken 30658 || is_port_taken 30657 || is_port_taken 30656 || is_port_taken 6460 || is_port_taken 30660 || is_port_taken 1717; then
+                echo -e "\e[1m\e[31m9490,9491,30658,30657,30656,6460,30660,1717\e[0m"
+            else
+                echo "9490, 9491, 30658, 30657, 30656, 6460, 30660, 1717"
+            fi
+
+            echo -n "6  - "
+            if is_port_taken 9590 || is_port_taken 9591 || is_port_taken 31658 || is_port_taken 31657 || is_port_taken 31656 || is_port_taken 6560 || is_port_taken 31660 || is_port_taken 1817; then
+                echo -e "\e[1m\e[31m9590,9591,31658,31657,31656,6560,31660,1817\e[0m"
+            else
+                echo "9590, 9591, 31658, 31657, 31656, 6560, 31660, 1817"
+            fi
+
+            echo -n "7  - "
+            if is_port_taken 9690 || is_port_taken 9691 || is_port_taken 32658 || is_port_taken 32657 || is_port_taken 32656 || is_port_taken 6660 || is_port_taken 32660 || is_port_taken 1917; then
+                echo -e "\e[1m\e[31m9690,9691,32658,32657,32656,6660,32660,1917\e[0m"
+            else
+                echo "9690, 9691, 32658, 32657, 32656, 6660, 32660, 1917"
+            fi
+
+            echo -n "8 - "
+            if is_port_taken 9790 || is_port_taken 9791 || is_port_taken 33658 || is_port_taken 33657 || is_port_taken 33656 || is_port_taken 6760 || is_port_taken 33660 || is_port_taken 2017; then
+                echo -e "\e[1m\e[31m9790,9791,33658,33657,33656,6760,33660,2017\e[0m"
+            else
+                echo "9790, 9791, 33658, 33657, 33656, 6760, 33660, 2017"
+            fi
+
+            echo -n "9 - "
+            if is_port_taken 9890 || is_port_taken 9891 || is_port_taken 34658 || is_port_taken 34657 || is_port_taken 34656 || is_port_taken 6860 || is_port_taken 34660 || is_port_taken 2117; then
+                echo -e "\e[1m\e[31m9890,9891,34658,34657,34656,6860,34660,2117\e[0m"
+            else
+                echo "9890, 9891, 34658, 34657, 34656, 6860, 34660, 2117"
             fi
 
             echo "Lava, DeFund, Nibiru використовують одні і ті ж самі порти, тому при встановленні з запропонованого списку вибирайте різний набір портів"

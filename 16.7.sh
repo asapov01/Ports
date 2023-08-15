@@ -15,7 +15,7 @@ function printRed {
 function is_port_taken {
     local port=$1
     if ss -tuln | awk -v p=":${port} " '$0 ~ p {exit 1}'; then
-        return 1
+        return 0
     elif [[ ($port -ge 9190 && $port -le 2117) ||
             ($port -eq 9190 || $port -eq 9191 || $port -eq 27658 || $port -eq 27657 || $port -eq 27656 || $port -eq 6160 || $port -eq 27660 || $port -eq 1417 ||
              $port -eq 9290 || $port -eq 9291 || $port -eq 28658 || $port -eq 28657 || $port -eq 28656 || $port -eq 6260 || $port -eq 28660 || $port -eq 1517 ||
@@ -25,9 +25,8 @@ function is_port_taken {
              $port -eq 9690 || $port -eq 9691 || $port -eq 32658 || $port -eq 32657 || $port -eq 32656 || $port -eq 6660 || $port -eq 32660 || $port -eq 1917 ||
              $port -eq 9790 || $port -eq 9791 || $port -eq 33658 || $port -eq 33657 || $port -eq 33656 || $port -eq 6760 || $port -eq 33660 || $port -eq 2017 ||
              $port -eq 9890 || $port -eq 9891 || $port -eq 34658 || $port -eq 34657 || $port -eq 34656 || $port -eq 6860 || $port -eq 34660 || $port -eq 2117) ]]; then
-        return 1
     else
-        return 0
+        return 1
     fi
 }
 

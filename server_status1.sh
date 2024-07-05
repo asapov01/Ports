@@ -13,8 +13,13 @@ else
     go_status="не встановлено"
 fi
 
+# Кольори
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # Без кольору
+
 # Виведення інформації
-echo "На вашому сервері доступно:"
-echo "SSD доступно: $ssd_available"
-echo "RAM доступно: $ram_available"
-echo "Мова програмування GO: $go_status"
+echo -e "${GREEN}На вашому сервері доступно:${NC}"
+echo -e "${GREEN}SSD доступно: ${RED}$ssd_available${NC}"
+echo -e "${GREEN}RAM доступно: ${RED}$ram_available${NC}"
+echo -e "${GREEN}Мова програмування GO: ${RED}$go_status${NC}"

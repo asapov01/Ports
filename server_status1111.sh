@@ -20,6 +20,13 @@ else
     screen_status="не встановлено"
 fi
 
+# Перевірка наявності Docker
+if docker_version=$(docker --version 2>/dev/null); then
+    docker_status="встановлено ($docker_version)"
+else
+    docker_status="не встановлено"
+fi
+
 # Кольори
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -33,3 +40,4 @@ echo -e "${GREEN}SSD доступно: ${RED}$ssd_available${NC}"
 echo -e "${GREEN}RAM доступно: ${RED}$ram_available${NC}"
 echo -e "${GREEN}Мова програмування GO: ${RED}$go_status${NC}"
 echo -e "${GREEN}Утиліта screen: ${RED}$screen_status${NC}"
+echo -e "${GREEN}Docker: ${RED}$docker_status${NC}"

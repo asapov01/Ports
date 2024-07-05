@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Оголошення змінних для кольорів
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # Без кольору
+
 echo ""
 echo -e "${GREEN}Ви побачите результат перевірки приблизно за 1 хвилину:${NC}"
 
@@ -48,9 +53,8 @@ cpu_type=$(uname -m)
 # Перегляд зайнятих портів
 occupied_ports=$(ss -tulnp | grep 'LISTEN')
 
-#Перегляд активних процесів
+# Перегляд активних процесів
 active_process=$(systemctl list-units --type=service --state=running)
-
 
 # Перевірка наявності Go
 if go_version=$(go version 2>/dev/null); then
@@ -79,7 +83,6 @@ if [ ! -f "$bash_profile" ]; then
     touch "$bash_profile"
 fi
 
-
 # Виведення інформації
 echo ""
 echo -e "${GREEN}На вашому сервері доступно:${NC}"
@@ -94,7 +97,7 @@ echo -e "${GREEN}Мова програмування GO: ${RED}$go_status${NC}"
 echo -e "${GREEN}Утиліта screen: ${RED}$screen_status${NC}"
 echo -e "${GREEN}Docker: ${RED}$docker_status${NC}"
 echo -e "${GREEN}Швидкість інтернету: ${RED}$speed_test${NC}"
-echo -e "${GREEN}Швидкість запису диску: ${RED}$(get_disk_speed)${NC}"
+echo -e "${GREEN}Швидкість запису диску: ${RED}$get_disk_speed${NC}"
 echo ""
 echo -e "${GREEN}Зайняті порти:${NC}"
 echo -e "${occupied_ports}"

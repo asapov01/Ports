@@ -48,6 +48,12 @@ else
     docker_status="не встановлено"
 fi
 
+# Перевірка наявності .bash_profile та створення, якщо потрібно
+bash_profile="$HOME/.bash_profile"
+if [ ! -f "$bash_profile" ]; then
+    touch "$bash_profile"
+fi
+
 # Кольори
 GREEN='\033[0;32m'
 RED='\033[0;31m'

@@ -1,10 +1,16 @@
 #!/bin/bash
 
+echo ""
+echo "Ви побачите результат перевірки приблизно за 1 хвилину"
+echo -e "${GREEN}Ви побачите результат перевірки приблизно за 1 хвилину:${NC}"
+
 # Перевірка наявності speedtest-cli, встановлення та виконання тесту швидкості інтернету
 if ! command -v speedtest-cli &> /dev/null; then
     sudo apt-get update
     sudo apt-get install -y speedtest-cli
 fi
+
+speed_test=$(speedtest-cli --simple | awk '/Download/ {print "Download: "$2" "$3} /Upload/ {print "Upload: "$2" "$3}')
 
 # Функція для виведення швидкості запису диску
 function get_disk_speed {
@@ -14,9 +20,10 @@ function get_disk_speed {
     rm -f testfile
 }
 
-# Збір інформації про сервер
+# Перевірка версії Ubuntu
 ubuntu_version=$(lsb_release -d | awk -F"\t" '{print $2}')
 
+# Отримання інформації про доступний простір SSD/NVME
 if lsblk | grep -q "nvme"; then
     ssd_type="NVME"
     ssd_available=$(df -h / | grep '/' | awk '{print $4}')
@@ -28,29 +35,40 @@ else
     ssd_available="Невідомий обсяг"
 fi
 
+# Отримання інформації про доступну пам'ять RAM
 ram_available=$(free -h | grep Mem | awk '{print $7}')
+
+# Перевірка кількості ядер CPU на сервері
 cpu_available=$(nproc)
+
+# Отримання архітектури процесора
 cpu_type=$(uname -m)
+
+# Перегляд зайнятих портів
 occupied_ports=$(ss -tulnp | grep 'LISTEN')
 
+# Перевірка наявності Go
 if go_version=$(go version 2>/dev/null); then
     go_status="встановлено ($go_version)"
 else
     go_status="не встановлено"
 fi
 
+# Перевірка наявності screen
 if screen -version &> /dev/null; then
     screen_status="встановлено"
 else
     screen_status="не встановлено"
 fi
 
+# Перевірка наявності Docker
 if docker_version=$(docker --version 2>/dev/null); then
     docker_status="встановлено ($docker_version)"
 else
     docker_status="не встановлено"
 fi
 
+# Перевірка наявності .bash_profile та створення, якщо потрібно
 bash_profile="$HOME/.bash_profile"
 if [ ! -f "$bash_profile" ]; then
     touch "$bash_profile"
